@@ -320,7 +320,11 @@ export default {
       }
 
       if (!result) {
-        if (elm.tagName === 'BODY') {
+        /**
+         * Fixed in relation to: https://github.com/PeachScript/vue-infinite-loading/pull/255
+         * Jira: https://rimsys.atlassian.net/browse/R5-11464
+         */
+        if (elm.tagName === 'BODY' || !elm.parentNode) {
           result = window;
         } else if (!this.forceUseInfiniteWrapper && ['scroll', 'auto'].indexOf(getComputedStyle(elm).overflowY) > -1) {
           result = elm;
